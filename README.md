@@ -30,7 +30,6 @@ and where to generate source files:
 
 ```json
 {
-{
   "src": ["vendor/*/*", "core"],
   "js": "site/generated/js/generated.js",
   "coffee": "site/generated/js/generated-coffee.coffee",
