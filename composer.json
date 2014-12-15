@@ -1,3 +1,6 @@
 {
-  "name": "soundasleep/asset-discovery"
+  "name": "soundasleep/asset-discovery",
+  "require-dev": {
+    "phpunit/phpunit": "~4.4"
+  }
 }

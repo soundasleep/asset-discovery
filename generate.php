@@ -6,6 +6,8 @@
  * images and such.
  */
 
+require(__DIR__ . "/functions.php");
+
 if (count($argv) < 2) {
   throw new Exception("Needs file root parameter");
 }
@@ -119,19 +121,22 @@ if ($selected_dirs) {
 
       // cycle through
       foreach ($assets['css'] as $path) {
-        $stylesheets[] = $dir . "/" . $path;
+        $stylesheets = array_merge($stylesheets, get_matching_paths($dir, $path));
       }
       foreach ($assets['js'] as $path) {
-        $javascripts[] = $dir . "/" . $path;
+        $javascripts = array_merge($javascripts, get_matching_paths($dir, $path));
       }
       foreach ($assets['scss'] as $path) {
-        $sasses[] = $dir . "/" . $path;
+        $sasses = array_merge($sasses, get_matching_paths($dir, $path));
       }
       foreach ($assets['coffee'] as $path) {
-        $coffeescripts[] = $dir . "/" . $path;
+        $coffeescripts = array_merge($coffeescripts, get_matching_paths($dir, $path));
       }
       foreach ($assets['images'] as $path) {
-        $images[] = $dir . "/" . $path;
+        $images[] = array(
+          'parent' => $dir,
+          'files' => get_matching_paths($dir, $path),
+        );
       }
       $count++;
     }
@@ -212,10 +217,14 @@ fclose($fp);
 echo "Processing " . count($images) . " image paths...\n";
 // recursive copy
 foreach ($images as $include) {
-  $paths = get_all_images($include, "", $json['imagetypes']);
-  echo "Copying " . count($paths) . " images from $include...\n";
-  foreach ($paths as $path) {
-    copy($path, $json['images'] . str_replace($include, "", $path));
+  echo "Copying " . count($include['files']) . " images from " . $include['parent'] . "...";
+  foreach ($include['files'] as $file) {
+    $relative = str_replace($include['parent'] . "/", "", $file);
+    // strip off the first part
+    $relative = explode("/", $relative, 2);
+    $relative = $relative[1];
+    $destination = $json['images'] . $relative;
+    copy($file, $destination);
   }
 }
 

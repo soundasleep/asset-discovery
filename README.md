@@ -1,5 +1,5 @@
 asset-discovery
-===================
+===============
 
 _asset-discovery_ is a Composer-enabled PHP script to locate assets
 (JS, CSS, Coffee, SASS, images) across multiple PHP components which then
@@ -26,7 +26,7 @@ and run `composer update` to install it into your project:
 ```
 
 Now create a `asset-discovery.json` in your project, to define the types of assets to discover,
-and where to generate source files:
+and where to place source files:
 
 ```json
 {
@@ -40,16 +40,18 @@ and where to generate source files:
 ```
 
 _asset-discovery_ will look in all the `src` folders for files called `assets.json`
-to find matching assets. For example, in your
+to find matching assets. Wildcards are supported. For example, in your
 `vendor/my/package/assets.json`:
 
 ```json
 {
-  "scss": ["css/currencies.scss"],
-  "coffee": ["js/currencies.coffee"],
-  "images": ["images/"]
+  "scss": ["css/currencies.scss", "css/second.scss"],
+  "coffee": ["js/*.coffee"],
+  "images": ["images/*"]
 }
 ```
+
+Generated asset files, other than images, will be included in the source order specified.
 
 ## Building
 
