@@ -6,7 +6,7 @@ _asset-discovery_ is a Composer-enabled PHP script to locate assets
 can be copied automatically into generated stylesheets, scripts and
 image folders.
 
-Based on [component-discovery](https://github.com/soundasleep/asset-discovery).
+Based on [component-discovery](https://github.com/soundasleep/component-discovery).
 
 ## Configuring
 
