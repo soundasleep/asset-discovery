@@ -80,21 +80,21 @@ if ($selected_dirs) {
 
       // cycle through
       foreach ($assets['css'] as $path) {
-        $stylesheets = array_merge($stylesheets, get_matching_paths($dir, $path));
+        $stylesheets = array_merge($stylesheets, get_matching_paths($root, $dir, $path));
       }
       foreach ($assets['js'] as $path) {
-        $javascripts = array_merge($javascripts, get_matching_paths($dir, $path));
+        $javascripts = array_merge($javascripts, get_matching_paths($root, $dir, $path));
       }
       foreach ($assets['scss'] as $path) {
-        $sasses = array_merge($sasses, get_matching_paths($dir, $path));
+        $sasses = array_merge($sasses, get_matching_paths($root, $dir, $path));
       }
       foreach ($assets['coffee'] as $path) {
-        $coffeescripts = array_merge($coffeescripts, get_matching_paths($dir, $path));
+        $coffeescripts = array_merge($coffeescripts, get_matching_paths($root, $dir, $path));
       }
       foreach ($assets['images'] as $path) {
         $images[] = array(
           'parent' => $dir,
-          'files' => get_matching_paths($dir, $path),
+          'files' => get_matching_paths($root, $dir, $path),
         );
       }
       $count++;

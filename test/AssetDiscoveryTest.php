@@ -5,7 +5,7 @@ require_once(__DIR__ . "/../functions.php");
 class AssetDiscoveryTest extends PHPUnit_Framework_TestCase {
 
   function testGetMatchingPathsSimple() {
-    $paths = get_matching_paths("resources", "1/1.coffee");
+    $paths = get_matching_paths(__DIR__ . "/..", "resources", "1/1.coffee");
     $this->assertEquals(
       array('resources/1/1.coffee'),
       $paths,
@@ -13,7 +13,7 @@ class AssetDiscoveryTest extends PHPUnit_Framework_TestCase {
   }
 
   function testGetMatchingPathsMultiple() {
-    $paths = get_matching_paths("resources", "1/*");
+    $paths = get_matching_paths(__DIR__ . "/..", "resources", "1/*");
     $this->assertEquals(
       array('resources/1/1.coffee', 'resources/1/2.coffee', 'resources/1/3.js'),
       $paths,
@@ -21,7 +21,7 @@ class AssetDiscoveryTest extends PHPUnit_Framework_TestCase {
   }
 
   function testGetMatchingPathsParents() {
-    $paths = get_matching_paths("resources", "*/1*");
+    $paths = get_matching_paths(__DIR__ . "/..", "resources", "*/1*");
     $this->assertEquals(
       array('resources/1/1.coffee', 'resources/2/1.js'),
       $paths,
@@ -29,7 +29,7 @@ class AssetDiscoveryTest extends PHPUnit_Framework_TestCase {
   }
 
   function testGetMatchingPathsPattern() {
-    $paths = get_matching_paths("resources", "1/*.coffee");
+    $paths = get_matching_paths(__DIR__ . "/..", "resources", "1/*.coffee");
     $this->assertEquals(
       array('resources/1/1.coffee', 'resources/1/2.coffee'),
       $paths,
@@ -37,11 +37,18 @@ class AssetDiscoveryTest extends PHPUnit_Framework_TestCase {
   }
 
   function testGetMatchingPathsPatternParent() {
-    $paths = get_matching_paths("resources", "*/*.coffee");
+    $paths = get_matching_paths(__DIR__ . "/..", "resources", "*/*.coffee");
     $this->assertEquals(
       array('resources/1/1.coffee', 'resources/1/2.coffee', 'resources/2/2.coffee'),
       $paths,
       "*/*.coffee did not match correctly");
+  }
+
+  function testGetAllFiles() {
+    $files = get_all_files(__DIR__ . "/../resources", "1");
+    $this->assertEquals(
+      array('1/1.coffee', '1/2.coffee', '1/3.js'),
+      $files);
   }
 
 }
