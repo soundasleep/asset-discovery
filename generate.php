@@ -176,13 +176,17 @@ fclose($fp);
 echo "Processing " . count($images) . " image paths...\n";
 // recursive copy
 foreach ($images as $include) {
-  echo "Copying " . count($include['files']) . " images from " . $include['parent'] . "...";
+  echo "Copying " . count($include['files']) . " images from " . $include['parent'] . "...\n";
   foreach ($include['files'] as $file) {
     $relative = str_replace($include['parent'] . "/", "", $file);
     // strip off the first part
     $relative = explode("/", $relative, 2);
     $relative = $relative[1];
     $destination = $json['images'] . $relative;
+
+    // make the target directory if it does not exist
+    make_target_directories(array($destination));
+
     copy($file, $destination);
   }
 }

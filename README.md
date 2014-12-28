@@ -17,11 +17,7 @@ and run `composer update` to install it into your project:
 {
   "require": {
     "soundasleep/asset-discovery": "dev-master"
-  },
-  "repositories": [{
-    "type": "vcs",
-    "url": "https://github.com/soundasleep/asset-discovery"
-  }]
+  }
 }
 ```
 
